@@ -31,16 +31,16 @@ If you find our work useful in your research, please consider citing:
   year = {2018}
 }
 ```
-- [INSTALLATION] (#INSTALLATION)
-- [Running STAR-FC] (#running-star-fc)
-- [Config File Format] (#config-file-format)
+- [INSTALLATION](#INSTALLATION)
+- [Running STAR-FC](#running-star-fc)
+- [Config File Format](#config-file-format)
 
 ## INSTALLATION
 STAR-FC requires an NVIDIA GPU with at least 5GB of memory available (tested on Titan X and GeForce GTX 1080 Ti).
 
 ### Docker (strongly recommended)
 
-Install [nvidia-docker] (https://github.com/NVIDIA/nvidia-docker) following the instructions in the official repository.
+Install [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) following the instructions in the official repository.
 
 Build Docker container using the scripts provided in docker_scripts folder (may take up to 1 hour to build OpenCV 3 with CUDA support and caffe with dependencies):
 
