@@ -1,0 +1,102 @@
+install Matio library (https://sourceforge.net/projects/matio/)
+	Matio is a C library to read/save files in .mat format
+	If Matlab and zlib are installed run the following commands:
+	./configure
+	sudo make install
+	Sometimes Matio lacks executable permission for configure after unzipping, fix by running
+	chmod u+x configure
+	May also want to install using sudo checkinstall to create a .deb file to facilitate uninstallation
+
+Install OpenCV 3.0 (optional)
+	if at runtime there is a GTK error about GTK2 and GTK3 symbols conflicting
+	recompile opencv with -DWITH_GTK=OFF
+
+CMake command to use with this OpenCV guide: http://www.pyimagesearch.com/2016/10/24/ubuntu-16-04-how-to-install-opencv/
+ cmake -D CMAKE_BUILD_TYPE=RELEASE \
+ 	-D WITH_GTK=OFF -D WITH_GTK_2_X=OFF -D WITH_QT=ON \
+ 	-D BUILD_JPEG=ON \
+    -D CMAKE_INSTALL_PREFIX=/usr/local \
+    -D INSTALL_PYTHON_EXAMPLES=OFF \
+    -D INSTALL_C_EXAMPLES=OFF ..    
+    -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-3.3.0/modules \
+    -D PYTHON_EXECUTABLE=~/.virtualenvs/cv/bin/python \
+    -D BUILD_EXAMPLES=ON ..
+    
+These flags -D WITH_GTK=OFF -D WITH_GTK_2_X=OFF -D WITH_QT=ON prevent OpenCV against linking to libprotobuf, in case there is 
+an older version of the library installed via apt-get
+
+Install qt5 and qttools5-dev-tools (qt designer in this package)
+
+Install cmake >3.1 since it has better support for CUDA and automatic qt5 ui building
+If cmake cannot find Qt5 libraries, add the following line to .bashrc with the
+path to qt5 install directory:
+export CMAKE_PREFIX_PATH=/usr/lib/x86_64-linux-gnu/qt5/:$CMAKE_PREFIX_PATH;
+
+
+if caffe throws segfault when trying to use Python layer CustomData:
+
+	install a newer version of protobuf > 3.1
+	follow instructions here:
+	https://github.com/google/protobuf/blob/master/src/README.md
+	install protobuf for python3
+		sudo install python3-pip
+		 pip3 install --user --upgrade protobuf==3.1.0.post1
+			
+	Then recompile caffe with python3 enabled
+	if while compiling caffe -lboost-python3 is not found
+	create a symbolic link from the libboost-python-py34.so located in the /usr/lib/x86_64-linux-gnu/
+		sudo ln -s /usr/lib/x86_64-linux-gnu/libboost_python-py35.so /usr/lib/x86_64-linux-gnu/libboost_python3.so
+	
+	sudo pip3 install scikit-image
+
+
+If at any point during the compilation you get this error
+	fatal error: caffe/proto/caffe.pb.h: No such file or directory
+Run the following commands in the caffe root directory:
+	protoc src/caffe/proto/caffe.proto --cpp_out=.
+	mkdir include/caffe/proto
+	mv src/caffe/proto/caffe.pb.h include/caffe/proto
+	
+	
+If there is out of memory error at runtime
+install cuDNN v5 (May 27, 2016) for CUDA 8.0
+	download https://developer.nvidia.com/rdp/cudnn-archive
+	unpack archive and copy cudnn header file from include/ directory to /usr/local/include/
+	and libraries from lib64 directory to /usr/local/lib (or any other location, which is on the PATH)
+recompile caffe with USE_CUDNN flag 
+	
+	
+add caffe python library and OpenSALICON folder to PYTHONPATH
+	export PYTHONPATH=/home/yulia/Documents/caffe/python:/home/yulia/Documents/ONR-TD/fixation_code/FixControlNew/contrib/OpenSALICON/:$PYTHONPATH
+	
+
+install gtest library
+sudo apt-get install libgtest-dev 
+this installs the source, build it by executing these commands:
+cd /usr/src/gtest
+sudo cmake CMakeLists.txt
+sudo make
+
+install fftw3 library
+sudo apt-get install libfftw3-dev
+
+Building FixControl using cmake:
+to enable OpenSALICON support, build with option WITH_SALICON
+with no options, the original version of FixControl with face templates will be built
+
+mkdir build
+cd build
+cmake -DWITH_SALICON=ON ../
+make
+
+set CUDA_VISIBLE_DEVICES environment variable for cuda, also works for running two instances of FixControl on two GPUs
+
+
+To use with DeepGazeII
+install tensorflow
+pip3 install tensorflow
+pip3 install tensorflow-gpu
+pip3 install pandas
+pip3 install seaborn
+
+

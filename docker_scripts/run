@@ -1,0 +1,73 @@
+#!/bin/bash
+
+STAR_FC_ROOT="/opt/STAR_FC"
+INPUT_VOLUME="/opt/input_dir"
+OUTPUT_VOLUME="/opt/output_dir"
+
+disp=false
+
+usage() {
+    echo "Usage: $0 -c <config_file> -i <input_dir> [-o <output_dir> -d]"
+}
+
+CONFIG_OPT=""
+INPUT_OPT=""
+OUTPUT_OPT=""
+DISP_OPT=""
+
+while getopts "h?dc:i:o:" opt; do
+    case "$opt" in
+        h|\?)
+            usage
+            exit 0
+            ;;
+        c)  config_file=$OPTARG
+            ;;
+        i)  input_dir=$OPTARG
+            ;;
+        o)  output_dir=$OPTARG
+            ;;
+        d)  DISP_OPT="--display"
+            ;;
+        esac
+done
+
+shift "$((OPTIND-1))"
+
+if [ -z "$config_file" ]; then
+    echo "ERROR: config_file has not been provided!"
+    usage
+    exit 1
+else
+    CONFIG_OPT="--configFile $config_file"
+fi
+
+if [ -z "$input_dir" ]; then
+    echo "ERROR: input_dir has not been provided!"
+    usage
+    exit 1
+else
+    input_dir=`realpath "$input_dir"`
+    INPUT_OPT="--inputDir $INPUT_VOLUME"
+fi
+
+if [ -z "$output_dir" ]; then
+    echo "ERROR: output_dir has not been provided. Not saving the results"
+else
+    output_dir=`realpath "$output_dir"`
+    OUTPUT_OPT="--outputDir $OUTPUT_VOLUME"
+fi
+
+#QT_GRAPHICSSYSTEM="native"
+xhost +local:root;
+nvidia-docker run -ti --rm \
+-h star_fc \
+-e DISPLAY=$DISPLAY \
+--privileged \
+-v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+--volume ${input_dir}:${INPUT_VOLUME} \
+--volume ${output_dir}:${OUTPUT_VOLUME} \
+-v `realpath config_files/`:${STAR_FC_ROOT}/config_files \
+-v `realpath data/`:${STAR_FC_ROOT}/data \
+-w ${STAR_FC_ROOT} star_fc ./STAR_FC $DISP_OPT $CONFIG_OPT $INPUT_OPT $OUTPUT_OPT
+xhost -local:root
