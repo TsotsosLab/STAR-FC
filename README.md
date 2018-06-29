@@ -1,7 +1,7 @@
 # STAR-FC Saccade Generator
 #### (Selective Tuning Attentive Reference model - Fixation Control)
 
-This repository contains C++ code for our CVPR 2018 paper ["Active Fixation Control to Predict Saccade Sequences"] (http://openaccess.thecvf.com/content_cvpr_2018/html/Wloka_Active_Fixation_Control_CVPR_2018_paper.html). Python version of the code is under development and will be released soon.
+This repository contains C++ code for our CVPR 2018 paper ["Active Fixation Control to Predict Saccade Sequences"](http://openaccess.thecvf.com/content_cvpr_2018/html/Wloka_Active_Fixation_Control_CVPR_2018_paper.html). Python version of the code is under development and will be released soon.
 
 ### Usage
 
