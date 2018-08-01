@@ -13,8 +13,8 @@ See our paper ["A Focus on Selection for Fixation"](https://bop.unibe.ch/index.p
 
 <div>
     <img src="examples/Yarbus_Shishkin_2min.png" width="250" title="Human fixations"/>
-    <img src="examples/shishkin_MCA_p1-10_40.jpg" width="250" title="STAR-FC"/>
-    <img src="examples/Salicon_decay.png" width="250" title="SALICON"/>
+    <img src="examples/Shishkin_STAR.png" width="250" title="STAR-FC"/>
+    <img src="examples/Shishkin_SALICON.png" width="250" title="SALICON"/>
 </div>
 
 
