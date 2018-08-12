@@ -129,7 +129,7 @@ ldconfig
 pip3 install --user --upgrade protobuf==3.1.0
 ```
 
-Install [CUDA 8.0](https://developer.nvidia.com/cuda-toolkit-archive), [TensorFlow](https://www.tensorflow.org/install/), [CuDNN 5.0](https://developer.nvidia.com/rdp/cudnn-archive) for CUDA 8.0 ([installation instructions](http://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html)) and [Caffe](https://github.com/BVLC/caffe/wiki/Ubuntu-16.04-or-15.10-Installation-Guide).
+Install [CUDA 8.0](https://developer.nvidia.com/cuda-toolkit-archive), [CuDNN 5.0](https://developer.nvidia.com/rdp/cudnn-archive) for CUDA 8.0 ([installation instructions](http://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html)) and [Caffe](https://github.com/BVLC/caffe/wiki/Ubuntu-16.04-or-15.10-Installation-Guide).
 
 Download and build caffe rc4 inside `$STAR_FC_ROOT/contrib/caffe`. Note: Caffe MUST be built with Python3 support, OpenCV 3.0 and CuDNN (see Makefile.config provided):
 
