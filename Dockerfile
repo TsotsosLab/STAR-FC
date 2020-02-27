@@ -25,7 +25,6 @@ libswscale-dev \
 python3-pip \
 python3-dev \
 python3-setuptools \
-python3-numpy \
 qtdeclarative5-dev \
 libleveldb-dev \
 libsnappy-dev \
@@ -47,8 +46,6 @@ unzip \
 dh-autoreconf \
 git && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install scikit-image
-
 WORKDIR $STAR_FC_ROOT
 
 ## compile OpenCV 3 with CUDA support (necessary to run AIM fast) ##
@@ -64,6 +61,8 @@ RUN cmake -DCMAKE_BUILD_TYPE=RELEASE \
    -DINSTALL_C_EXAMPLES=OFF  \
    -DWITH_CUDA=ON \
    -DBUILD_EXAMPLES=OFF .. && make -j8 && make install
+
+RUN pip3 install matplotlib==2.2.3 scikit-image==0.15 numpy
 
 ## install protobuf
 RUN pip3 install --user --upgrade protobuf==3.1.0
